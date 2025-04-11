@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { Todo } from "@/types/todo";
+import type { Todo, CreateTodoInput } from "@/types/todo";
 import { TodoStorage } from "@/services/todoStorage";
 import { TodoList } from "./TodoList";
 import { TodoForm } from "./TodoForm";
@@ -14,8 +14,8 @@ export function TodoApp() {
 		setTodos(todoStorage.getAllTodos());
 	}, []);
 
-	const handleCreateTodo = (title: string) => {
-		const newTodo = todoStorage.createTodo({ title });
+	const handleCreateTodo = (input: CreateTodoInput) => {
+		const newTodo = todoStorage.createTodo(input);
 		setTodos((prev) => [...prev, newTodo]);
 	};
 

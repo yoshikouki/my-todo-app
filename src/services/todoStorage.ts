@@ -1,4 +1,9 @@
-import type { Todo, CreateTodoInput, UpdateTodoInput } from "@/types/todo";
+import type {
+	Todo,
+	CreateTodoInput,
+	UpdateTodoInput,
+	Priority,
+} from "@/types/todo";
 
 const STORAGE_KEY = "todos";
 
@@ -20,14 +25,16 @@ export class TodoStorage {
 		if (!todosJson) return [];
 		return JSON.parse(todosJson).map(
 			(
-				todo: Omit<Todo, "createdAt" | "updatedAt"> & {
+				todo: Omit<Todo, "createdAt" | "updatedAt" | "dueDate"> & {
 					createdAt: string;
 					updatedAt: string;
+					dueDate: string | null;
 				},
 			) => ({
 				...todo,
 				createdAt: new Date(todo.createdAt),
 				updatedAt: new Date(todo.updatedAt),
+				dueDate: todo.dueDate ? new Date(todo.dueDate) : null,
 			}),
 		);
 	}
@@ -47,6 +54,9 @@ export class TodoStorage {
 			id: crypto.randomUUID(),
 			title: input.title,
 			completed: false,
+			priority: input.priority || "medium",
+			dueDate: input.dueDate || null,
+			category: input.category || null,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		};

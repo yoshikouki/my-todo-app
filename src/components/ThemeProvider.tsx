@@ -5,7 +5,7 @@ import {
 	useContext,
 	useEffect,
 	useState,
-	ReactNode,
+	type ReactNode,
 } from "react";
 
 type Theme = "light" | "dark";
@@ -30,6 +30,7 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
+	const [mounted, setMounted] = useState(false);
 	const [theme, setTheme] = useState<Theme>("light");
 
 	useEffect(() => {
@@ -44,6 +45,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 		const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
 		setTheme(initialTheme);
 		document.documentElement.classList.toggle("dark", initialTheme === "dark");
+		setMounted(true);
 	}, []);
 
 	const toggleTheme = () => {
@@ -52,6 +54,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 		document.documentElement.classList.toggle("dark", newTheme === "dark");
 		localStorage.setItem("theme", newTheme);
 	};
+
+	// マウント前はレンダリングを遅延させる
+	if (!mounted) {
+		return null;
+	}
 
 	return (
 		<ThemeContext.Provider value={{ theme, toggleTheme }}>

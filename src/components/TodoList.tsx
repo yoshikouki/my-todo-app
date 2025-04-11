@@ -36,24 +36,41 @@ export function TodoList({
 
 	if (todos.length === 0) {
 		return (
-			<div className="text-center text-gray-500 dark:text-dark-secondary mt-8">
+			<div className="text-center text-gray-400 dark:text-gray-500 py-8 animate-fade-in">
 				TODOがありません。新しいTODOを追加してください。
 			</div>
 		);
 	}
 
 	return (
-		<ul className="space-y-4">
+		<ul className="space-y-3">
 			{todos.map((todo) => (
 				<li
 					key={todo.id}
-					className="flex items-center gap-4 p-4 bg-white dark:bg-dark-secondary rounded shadow dark:shadow-gray-800"
+					className="
+						group
+						animate-slide-in
+						flex items-center gap-4 p-4
+						bg-white/50 dark:bg-dark-accent/50
+						rounded-xl border border-gray-100 dark:border-gray-700
+						shadow-subtle hover:shadow-lg
+						transform transition-all duration-200
+						hover:scale-[1.02]
+					"
 				>
 					<input
 						type="checkbox"
 						checked={todo.completed}
 						onChange={() => onToggle(todo.id)}
-						className="w-5 h-5 border-2 rounded focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-dark-primary"
+						className="
+							w-5 h-5
+							border-2 rounded-lg
+							text-primary-500
+							focus:ring-2 focus:ring-primary-400
+							dark:border-gray-600 dark:bg-dark-primary
+							transition-all duration-200
+							hover:scale-110
+						"
 					/>
 					{editingId === todo.id ? (
 						<div className="flex-1 flex gap-2">
@@ -61,19 +78,42 @@ export function TodoList({
 								type="text"
 								value={editingTitle}
 								onChange={(e) => setEditingTitle(e.target.value)}
-								className="flex-1 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-primary dark:text-dark-primary dark:border-gray-600"
+								className="
+									flex-1 px-3 py-2 rounded-lg
+									bg-white/80 dark:bg-dark-primary/80
+									border border-gray-200 dark:border-gray-700
+									text-gray-800 dark:text-gray-100
+									focus:outline-none focus:ring-2 focus:ring-primary-400
+									transition-all duration-200
+								"
 							/>
 							<button
 								type="button"
 								onClick={() => handleSave(todo.id)}
-								className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700"
+								className="
+									px-4 py-2 rounded-lg
+									bg-green-500 hover:bg-green-600
+									dark:bg-green-600 dark:hover:bg-green-700
+									text-white font-medium
+									transform transition-all duration-200
+									hover:scale-105 active:scale-95
+									focus:outline-none focus:ring-2 focus:ring-green-400
+								"
 							>
 								保存
 							</button>
 							<button
 								type="button"
 								onClick={handleCancel}
-								className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700"
+								className="
+									px-4 py-2 rounded-lg
+									bg-gray-500 hover:bg-gray-600
+									dark:bg-gray-600 dark:hover:bg-gray-700
+									text-white font-medium
+									transform transition-all duration-200
+									hover:scale-105 active:scale-95
+									focus:outline-none focus:ring-2 focus:ring-gray-400
+								"
 							>
 								キャンセル
 							</button>
@@ -81,26 +121,43 @@ export function TodoList({
 					) : (
 						<>
 							<span
-								className={`flex-1 ${
-									todo.completed
-										? "line-through text-gray-500 dark:text-gray-400"
-										: "text-gray-800 dark:text-dark-primary"
-								}`}
+								className={`
+									flex-1
+									text-gray-800 dark:text-gray-100
+									transition-all duration-200
+									${todo.completed ? "line-through text-gray-400 dark:text-gray-500" : ""}
+								`}
 							>
 								{todo.title}
 							</span>
-							<div className="flex gap-2">
+							<div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
 								<button
 									type="button"
 									onClick={() => handleEdit(todo)}
-									className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+									className="
+										px-4 py-2 rounded-lg
+										bg-primary-500 hover:bg-primary-600
+										dark:bg-primary-600 dark:hover:bg-primary-700
+										text-white font-medium
+										transform transition-all duration-200
+										hover:scale-105 active:scale-95
+										focus:outline-none focus:ring-2 focus:ring-primary-400
+									"
 								>
 									編集
 								</button>
 								<button
 									type="button"
 									onClick={() => onDelete(todo.id)}
-									className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700"
+									className="
+										px-4 py-2 rounded-lg
+										bg-red-500 hover:bg-red-600
+										dark:bg-red-600 dark:hover:bg-red-700
+										text-white font-medium
+										transform transition-all duration-200
+										hover:scale-105 active:scale-95
+										focus:outline-none focus:ring-2 focus:ring-red-400
+									"
 								>
 									削除
 								</button>

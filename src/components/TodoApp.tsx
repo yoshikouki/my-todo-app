@@ -46,15 +46,19 @@ export function TodoApp() {
 	};
 
 	return (
-		<div className="max-w-2xl mx-auto p-4">
-			<h1 className="text-3xl font-bold text-center mb-8">TODOアプリ</h1>
-			<TodoForm onSubmit={handleCreateTodo} />
-			<TodoList
-				todos={todos}
-				onToggle={handleToggleTodo}
-				onUpdate={handleUpdateTodo}
-				onDelete={handleDeleteTodo}
-			/>
+		<div className="max-w-2xl mx-auto p-4 animate-fade-in">
+			<h1 className="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100 animate-slide-up">
+				TODOアプリ
+			</h1>
+			<div className="bg-white/80 dark:bg-dark-secondary/80 backdrop-blur-md rounded-2xl shadow-glass dark:shadow-glass-dark p-6 space-y-6 animate-scale-in">
+				<TodoForm onSubmit={handleCreateTodo} />
+				<TodoList
+					todos={todos}
+					onToggle={handleToggleTodo}
+					onUpdate={handleUpdateTodo}
+					onDelete={handleDeleteTodo}
+				/>
+			</div>
 		</div>
 	);
 }
